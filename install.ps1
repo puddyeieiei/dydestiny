@@ -3,8 +3,10 @@ $url_dll = "https://raw.githubusercontent.com/puddyeieiei/dydestiny/main/version
 $chrome_path = "$env:ProgramFiles\Google\Chrome\Application"
 $dll_path = "$chrome_path\version.dll"
 
-# ตรวจสอบสิทธิ์ Admin
-if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+# ตรวจสอบสิทธิ์ Admin (เวอร์ชันที่ถูกต้อง)
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (-NOT $isAdmin) {
     Write-Host "Please run PowerShell as Administrator!" -ForegroundColor Red
     exit 1
 }
